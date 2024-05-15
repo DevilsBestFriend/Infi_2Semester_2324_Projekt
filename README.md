@@ -8,3 +8,5 @@
 - Check in/out
 - Handtuchvergabe
 - verschieden Mitgliedschaften
+- Fitness Kurse
+- Trainer
