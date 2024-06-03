@@ -2,7 +2,7 @@
 
 - PostgreSQL
 - Java
-- ORM steht noch nicht fest
+- ORM nein
 
 # Projekt: Fitnessstuidio Managment Software
 - Check in/out
