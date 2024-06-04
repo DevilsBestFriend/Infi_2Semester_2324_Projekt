@@ -2,11 +2,11 @@
 
 - PostgreSQL
 - Java
-- ORM steht noch nicht fest
+- ORM nein
 
 # Projekt: Fitnessstuidio Managment Software
 - Check in/out
-- Handtuchvergabe (kann)
+- Handtuchvergabe
 - verschieden Mitgliedschaften
 - Fitness Kurse (kann)
 - Trainer (kann)
