@@ -22,6 +22,7 @@ public class Database {
             st.execute(stmt);
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -31,5 +32,10 @@ public class Database {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Kommplette Verbindung geschlossen");
+    }
+
+    public Connection getCon() {
+        return con;
     }
 }
