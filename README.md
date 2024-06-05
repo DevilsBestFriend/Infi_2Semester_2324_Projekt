@@ -6,8 +6,8 @@
 
 # Projekt: Fitnessstuidio Managment Software
 - Check in/out
-- Handtuchvergabe
+- Handtuchvergabe (nein)
 - verschieden Mitgliedschaften
 - Fitness Kurse (kann)
 - Trainer (kann)
-  - entweder Trainer oder Fitness Kurse
+  - entweder Trainer oder Fitness Kurse (beides)
