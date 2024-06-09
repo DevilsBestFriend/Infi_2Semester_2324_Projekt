@@ -3,11 +3,12 @@ package org.example;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
-
 //
 // DB STARTEN NICHT VERGESSEN
 //
+
+// TODO import/export , update, delete, find fertigstellen
+
 public class Main {
     static Scanner scn = new Scanner(System.in);
 
@@ -40,7 +41,7 @@ public class Main {
                     System.out.println("e exit: Exit the program");
                     System.out.println("h help: Show this help message");
                     System.out.println("i insert: Insert a new entry");
-                    System.out.println("s select f find: Select entries");
+                    System.out.println("s select f find: Select (specific) entries");
                     System.out.println("u update: Update an entry");
                     System.out.println("d delete: Delete an entry");
                     System.out.println("b backup: Backup database as JSON");
@@ -54,7 +55,7 @@ public class Main {
                         case "i", "insert":
                             insert(db, table);
                             break;
-                        case "s", "select" :
+                        case "s", "select":
                             select(db, table);
                             break;
                         case "u", "update":
@@ -62,6 +63,7 @@ public class Main {
                         case "d", "delete":
                             break;
                         case "f", "find":
+                            find(db, table);
                             break;
                     }
                     break;
@@ -97,7 +99,7 @@ public class Main {
         }
     }
 
-    private static void select (Database db, String table) throws SQLException {
+    private static void select(Database db, String table) throws SQLException {
         switch (table) {
             case "mi", "mitglieder":
                 DBselect.selmitglied(db);
@@ -114,6 +116,22 @@ public class Main {
         }
     }
 
+    private static void find(Database db, String table) throws SQLException {
+        switch (table) {
+            case "mi", "mitglieder":
+                DBfind.findmitglied(db);
+                break;
+            case "tr", "trainer":
+                DBfind.findtrainer(db);
+                break;
+            case "kr", "kurs":
+                DBfind.findkurs(db);
+                break;
+            case "te", "teilnehmer":
+                DBfind.findteilnehmer(db);
+                break;
+        }
+    }
 
     public static void dbinit(Database db) {
         //CREATE TYPE wochentag AS ENUM ('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag');
