@@ -16,14 +16,9 @@ public class Database {
     }
 
 
-    public void execStmt(String stmt) {
-        try {
+    public void execStmt(String stmt) throws SQLException {
             Statement st = con.createStatement();
             st.execute(stmt);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
     }
 
     public void close() {

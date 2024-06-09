@@ -24,6 +24,8 @@ public class Main {
 
     public static void code(Database db) throws SQLException {
         dbinit(db);
+
+
     }
 
 
@@ -33,33 +35,38 @@ public class Main {
         //in psql commandline einfügen
 
         //erstellung der Tabellen
-        db.execStmt("CREATE TABLE IF NOT EXISTS mitglieder (" +
-                "id UUID PRIMARY KEY NOT NULL, " +
-                "vname VARCHAR(255) , " +
-                "nname VARCHAR(255) , " +
-                "gbd DATE, " +
-                "mitgliedschaft MITGLIEDSCHAFT NOT NULL, " +
-                "vertragsstart DATE NOT NULL DEFAULT CURRENT_DATE)");
-        db.execStmt("CREATE TABLE IF NOT EXISTS trainer (" +
-                "id UUID PRIMARY KEY NOT NULL, " +
-                "vname VARCHAR(255) , " +
-                "nname VARCHAR(255) , " +
-                "gbd DATE, " +
-                "gehalt NUMERIC(10, 2) NOT NULL, " +
-                "einstelldatum DATE NOT NULL DEFAULT CURRENT_DATE)");
-        db.execStmt("CREATE TABLE IF NOT EXISTS kurs (" +
-                "id UUID PRIMARY KEY NOT NULL, " +
-                "name VARCHAR(255) , " +
-                "trainer UUID, " +
-                "startzeit time, " +
-                "endzeit time, " +
-                "tag WOCHENTAG NOT NULL," +
-                "FOREIGN KEY (trainer) REFERENCES trainer(id))");
-        db.execStmt("CREATE TABLE IF NOT EXISTS teilnehmer (" +
-                "id UUID PRIMARY KEY NOT NULL, " +
-                "mitglied UUID, " +
-                "kurs UUID, " +
-                "FOREIGN KEY (mitglied) REFERENCES mitglieder(id), " +
-                "FOREIGN KEY (kurs) REFERENCES kurs(id))");
+        try {
+            db.execStmt("CREATE TABLE IF NOT EXISTS mitglieder (" +
+                    "id UUID PRIMARY KEY NOT NULL, " +
+                    "vname VARCHAR(255) , " +
+                    "nname VARCHAR(255) , " +
+                    "gbd DATE, " +
+                    "mitgliedschaft MITGLIEDSCHAFT NOT NULL, " +
+                    "vertragsstart DATE NOT NULL DEFAULT CURRENT_DATE)");
+            db.execStmt("CREATE TABLE IF NOT EXISTS trainer (" +
+                    "id UUID PRIMARY KEY NOT NULL, " +
+                    "vname VARCHAR(255) , " +
+                    "nname VARCHAR(255) , " +
+                    "gbd DATE, " +
+                    "gehalt NUMERIC(10, 2) NOT NULL, " +
+                    "einstelldatum DATE NOT NULL DEFAULT CURRENT_DATE)");
+            db.execStmt("CREATE TABLE IF NOT EXISTS kurs (" +
+                    "id UUID PRIMARY KEY NOT NULL, " +
+                    "name VARCHAR(255) , " +
+                    "trainer UUID, " +
+                    "startzeit time, " +
+                    "endzeit time, " +
+                    "tag WOCHENTAG NOT NULL," +
+                    "FOREIGN KEY (trainer) REFERENCES trainer(id))");
+            db.execStmt("CREATE TABLE IF NOT EXISTS teilnehmer (" +
+                    "id UUID PRIMARY KEY NOT NULL, " +
+                    "mitglied UUID, " +
+                    "kurs UUID, " +
+                    "FOREIGN KEY (mitglied) REFERENCES mitglieder(id), " +
+                    "FOREIGN KEY (kurs) REFERENCES kurs(id))");
+        } catch (SQLException e) {
+            System.out.println("Fehler beim Erstellen der Tabellen glaube ich");
+            e.printStackTrace();
+        }
     }
 }
