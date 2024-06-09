@@ -54,8 +54,8 @@ public class Main {
                         case "i", "insert":
                             insert(db, table);
                             break;
-                        case "s", "select":
-
+                        case "s", "select" :
+                            select(db, table);
                             break;
                         case "u", "update":
                             break;
@@ -93,6 +93,23 @@ public class Main {
                 break;
             case "te", "teilnehmer":
                 DBinsert.insteilnehmer(db);
+                break;
+        }
+    }
+
+    private static void select (Database db, String table) throws SQLException {
+        switch (table) {
+            case "mi", "mitglieder":
+                DBselect.selmitglied(db);
+                break;
+            case "tr", "trainer":
+                DBselect.seltrainer(db);
+                break;
+            case "kr", "kurs":
+                DBselect.selkurs(db);
+                break;
+            case "te", "teilnehmer":
+                DBselect.selteilnehmer(db);
                 break;
         }
     }

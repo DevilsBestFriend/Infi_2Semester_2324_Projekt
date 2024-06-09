@@ -66,7 +66,7 @@ public class DBinsert {
         String tag = scn.nextLine();
         PreparedStatement pst = db.getCon().prepareStatement("INSERT INTO kurs (name, trainer, startzeit, endzeit, tag) VALUES (?, ?, ?, ?, ?)");
         pst.setString(1, name);
-        pst.setString(2, tid);//TODO
+        pst.setString(2, tid);
         pst.setTime(3, startzeit);
         pst.setTime(4, endzeit);
         pst.setString(5, tag);

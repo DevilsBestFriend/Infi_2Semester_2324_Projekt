@@ -30,6 +30,11 @@ public class Database {
             st.execute(stmt);
     }
 
+    public ResultSet execQuery(String query) throws SQLException {
+        Statement st = con.createStatement();
+        return st.executeQuery(query);
+    }
+
     public void close() {
         try {
             con.close();
