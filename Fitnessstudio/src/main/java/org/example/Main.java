@@ -1,14 +1,17 @@
 package org.example;
 
+
 import java.sql.SQLException;
 import java.util.Scanner;
+
 
 //
 // DB STARTEN NICHT VERGESSEN
 //
 public class Main {
+    static Scanner scn = new Scanner(System.in);
+
     public static void main(String[] args) {
-        Scanner scn = new Scanner(System.in);
         String url = "jdbc:postgresql:fitness";
         System.out.println("Enter username and password");
         url += ("?user=" + scn.nextLine() + "&password=" + scn.nextLine());
@@ -24,46 +27,73 @@ public class Main {
 
     public static void code(Database db) throws SQLException {
         dbinit(db);
-
+        boolean continueLoop = true;
         System.out.println("Command line tool started (h help)");
-        Scanner scn = new Scanner(System.in);
 
-        while (true) {
-            System.out.println("Enter command");
+        while (continueLoop) {
             String cmd = scn.nextLine();
+            if (cmd.equals("exit") || cmd.equals("e")) continueLoop = false;
+
             switch (cmd) {
                 case "h", "help": {
                     System.out.println("Commands:");
                     System.out.println("e exit: Exit the program");
                     System.out.println("h help: Show this help message");
                     System.out.println("i insert: Insert a new entry");
-                    System.out.println("s select: Select entries");
+                    System.out.println("s select f find: Select entries");
                     System.out.println("u update: Update an entry");
                     System.out.println("d delete: Delete an entry");
-                    System.out.println("f find: Find an entry");
                     System.out.println("b backup: Backup database as JSON");
                     System.out.println("r restore: Restore database from a JSON backup");
                     break;
                 }
-                case "i", "insert":
-                    break;
-                case "s", "select":
-                    break;
-                case "u", "update":
-                    break;
-                case "d", "delete":
-                    break;
-                case "f", "find":
+                case "i", "insert", "s", "select", "u", "update", "d", "delete", "f", "find":
+                    System.out.println("Enter table name (mi mitglieder, tr trainer, kr kurs, te teilnehmer");
+                    String table = scn.nextLine();
+                    switch (cmd) {
+                        case "i", "insert":
+                            insert(db, table);
+                            break;
+                        case "s", "select":
+
+                            break;
+                        case "u", "update":
+                            break;
+                        case "d", "delete":
+                            break;
+                        case "f", "find":
+                            break;
+                    }
                     break;
                 case "b", "backup":
+                    System.out.println("Backup will be saved as backup.json");
+                    db.backup();
                     break;
                 case "r", "restore":
+                    System.out.println("Backup will be restored from backup.json");
+                    db.restore();
+                    break;
+                default:
+                    if (continueLoop) System.out.println("Invalid command (h help)");
                     break;
             }
+        }
+    }
 
-            if (cmd.equals("exit")) {
+    private static void insert(Database db, String table) throws SQLException {
+        switch (table) {
+            case "mi", "mitglieder":
+                DBinsert.insmitglied(db);
                 break;
-            }
+            case "tr", "trainer":
+                DBinsert.instrainer(db);
+                break;
+            case "kr", "kurs":
+                DBinsert.inskurs(db);
+                break;
+            case "te", "teilnehmer":
+                DBinsert.insteilnehmer(db);
+                break;
         }
     }
 
@@ -76,29 +106,30 @@ public class Main {
         //erstellung der Tabellen
         try {
             db.execStmt("CREATE TABLE IF NOT EXISTS mitglieder (" +
-                    "id UUID PRIMARY KEY NOT NULL, " +
-                    "vname VARCHAR(255) , " +
-                    "nname VARCHAR(255) , " +
+                    "id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(), " +
+                    "vname VARCHAR(255), " +
+                    "nname VARCHAR(255), " +
                     "gbd DATE, " +
+                    "checkin BOOLEAN NOT NULL DEFAULT TRUE, " +
                     "mitgliedschaft MITGLIEDSCHAFT NOT NULL, " +
                     "vertragsstart DATE NOT NULL DEFAULT CURRENT_DATE)");
             db.execStmt("CREATE TABLE IF NOT EXISTS trainer (" +
-                    "id UUID PRIMARY KEY NOT NULL, " +
-                    "vname VARCHAR(255) , " +
-                    "nname VARCHAR(255) , " +
+                    "id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(), " +
+                    "vname VARCHAR(255), " +
+                    "nname VARCHAR(255), " +
                     "gbd DATE, " +
                     "gehalt NUMERIC(10, 2) NOT NULL, " +
                     "einstelldatum DATE NOT NULL DEFAULT CURRENT_DATE)");
             db.execStmt("CREATE TABLE IF NOT EXISTS kurs (" +
-                    "id UUID PRIMARY KEY NOT NULL, " +
-                    "name VARCHAR(255) , " +
+                    "id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(), " +
+                    "name VARCHAR(255), " +
                     "trainer UUID, " +
                     "startzeit time, " +
                     "endzeit time, " +
                     "tag WOCHENTAG NOT NULL," +
                     "FOREIGN KEY (trainer) REFERENCES trainer(id))");
             db.execStmt("CREATE TABLE IF NOT EXISTS teilnehmer (" +
-                    "id UUID PRIMARY KEY NOT NULL, " +
+                    "id UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(), " +
                     "mitglied UUID, " +
                     "kurs UUID, " +
                     "FOREIGN KEY (mitglied) REFERENCES mitglieder(id), " +

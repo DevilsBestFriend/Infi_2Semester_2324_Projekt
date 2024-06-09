@@ -4,17 +4,26 @@ import java.sql.*;
 
 public class Database {
     Connection con;
+    ResultSet rs;
 
     public Database(String url) {
         try {
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection(url);
             System.out.println("Connection established hoffentlich");
+            rs = null;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public void restore() throws SQLException {
+        // TODO
+    }
+
+    public void backup() throws SQLException {
+        // TODO
+    }
 
     public void execStmt(String stmt) throws SQLException {
             Statement st = con.createStatement();
@@ -27,7 +36,7 @@ public class Database {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Kommplette Verbindung geschlossen");
+        System.out.println("Kommpletteerino (JAAA, ja, ja komplett) Verbindung geschlossen");
     }
 
     public Connection getCon() {
