@@ -25,7 +25,46 @@ public class Main {
     public static void code(Database db) throws SQLException {
         dbinit(db);
 
+        System.out.println("Command line tool started (h help)");
+        Scanner scn = new Scanner(System.in);
 
+        while (true) {
+            System.out.println("Enter command");
+            String cmd = scn.nextLine();
+            switch (cmd) {
+                case "h", "help": {
+                    System.out.println("Commands:");
+                    System.out.println("e exit: Exit the program");
+                    System.out.println("h help: Show this help message");
+                    System.out.println("i insert: Insert a new entry");
+                    System.out.println("s select: Select entries");
+                    System.out.println("u update: Update an entry");
+                    System.out.println("d delete: Delete an entry");
+                    System.out.println("f find: Find an entry");
+                    System.out.println("b backup: Backup database as JSON");
+                    System.out.println("r restore: Restore database from a JSON backup");
+                    break;
+                }
+                case "i", "insert":
+                    break;
+                case "s", "select":
+                    break;
+                case "u", "update":
+                    break;
+                case "d", "delete":
+                    break;
+                case "f", "find":
+                    break;
+                case "b", "backup":
+                    break;
+                case "r", "restore":
+                    break;
+            }
+
+            if (cmd.equals("exit")) {
+                break;
+            }
+        }
     }
 
 
