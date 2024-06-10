@@ -9,16 +9,36 @@ public class DBfind {
     private static Scanner scn = new Scanner(System.in);
 
     public static void findmitglied(Database db) throws SQLException {
-        ResultSet rs = db.execQueryno("SELECT vname Vorname, nname Nachname, gbd Geburtsdatum, " +
+        PreparedStatement preparedStatement = db.getCon().prepareStatement("SELECT vname Vorname, nname Nachname, gbd Geburtsdatum, " +
                 "mitgliedschaft Mitgliedschaft, checkin Checkin, vertragsstart \"Mitglied seit\" " +
-                "FROM mitglieder ORDER BY nname ASC");
-        Database.formatResult(rs);
+                "FROM mitglieder WHERE nname LIKE ? and vname LIKE ? ORDER BY nname ASC");
+        System.out.println("Enter last name");
+        preparedStatement.setString(1, "%" + scn.nextLine() + "%");
+        System.out.println("Enter first name");
+        preparedStatement.setString(2, "%" + scn.nextLine() + "%");
+        try {
+            ResultSet rs = db.execQueryye(preparedStatement);
+            Database.formatResult(rs);
+        } catch (SQLException e) {
+            System.out.println("Fehler beim Suchen des Kurses finde ich");
+            e.printStackTrace();
+        };
     }
 
     public static void findtrainer(Database db) throws SQLException {
-        ResultSet rs = db.execQueryno("SELECT vname Vorname, nname Nachname, gbd Geburtsdatum, gehalt Gehalt, einstelldatum Einstelldatum " +
-                "FROM trainer ORDER BY nname ASC");
-        Database.formatResult(rs);
+        PreparedStatement preparedStatement = db.getCon().prepareStatement("SELECT vname Vorname, nname Nachname, gbd Geburtsdatum, gehalt Gehalt, einstelldatum Einstelldatum " +
+                "FROM trainer WHERE nname LIKE ? and vname LIKE ? ORDER BY nname ASC");
+        System.out.println("Enter last name");
+        preparedStatement.setString(1, "%" + scn.nextLine() + "%");
+        System.out.println("Enter first name");
+        preparedStatement.setString(2, "%" + scn.nextLine() + "%");
+        try {
+            ResultSet rs = db.execQueryye(preparedStatement);
+            Database.formatResult(rs);
+        } catch (SQLException e) {
+            System.out.println("Fehler beim Suchen des Kurses finde ich");
+            e.printStackTrace();
+        }
     }
 
     public static void findkurs(Database db) throws SQLException {
@@ -57,9 +77,12 @@ public class DBfind {
             System.out.println("Enter first name");
             prst.setString(2, "%" + scn.nextLine() + "%");
         }
-
-
-        ResultSet rs = db.execQueryye(prst);
-        Database.formatResult(rs);
+        try {
+            ResultSet rs = db.execQueryye(prst);
+            Database.formatResult(rs);
+        } catch (SQLException e) {
+            System.out.println("Fehler beim Suchen des Kurses finde ich");
+            e.printStackTrace();
+        }
     }
 }
