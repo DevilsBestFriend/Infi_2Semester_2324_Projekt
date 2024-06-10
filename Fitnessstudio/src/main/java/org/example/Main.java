@@ -1,13 +1,12 @@
 package org.example;
 
-
 import java.sql.SQLException;
 import java.util.Scanner;
 //
 // DB STARTEN NICHT VERGESSEN
 //
 
-// TODO import/export , update, delete, find fertigstellen
+// TODO import/export , update, delete
 
 public class Main {
     static Scanner scn = new Scanner(System.in);
@@ -16,7 +15,6 @@ public class Main {
         String url = "jdbc:postgresql:fitness";
         System.out.println("Enter username and password");
         url += ("?user=" + scn.nextLine() + "&password=" + scn.nextLine());
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         Database db = new Database(url);
         try {
             code(db);
