@@ -30,14 +30,13 @@ public class Database {
         st.execute(stmt);
     }
 
-    public ResultSet execQuery(String query, boolean prepared) throws SQLException {
-        if (!prepared) {
-            Statement st = con.createStatement();
-            return st.executeQuery(query);
-        } else {
-            PreparedStatement pst = con.prepareStatement(query);
-            return pst.executeQuery();
-        }
+    public ResultSet execQueryno(String query) throws SQLException {
+        Statement st = con.createStatement();
+        return st.executeQuery(query);
+    }
+
+    public ResultSet execQueryye(PreparedStatement pst) throws SQLException {
+        return pst.executeQuery();
     }
 
     public static void formatResult(ResultSet rs) throws SQLException {
@@ -75,8 +74,7 @@ public class Database {
                     i++;
                 }
             }
-        } catch (
-                SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
