@@ -19,10 +19,12 @@ public class Database {
 
     public void restore() throws SQLException {
         // TODO
+        // Store file in src/main/resources
     }
 
     public void backup() throws SQLException {
         // TODO
+        // Store file in src/main/resources
     }
 
     public void execStmt(String stmt) throws SQLException {
@@ -41,7 +43,7 @@ public class Database {
 
     public static void formatResult(ResultSet rs) throws SQLException {
         ResultSetMetaData rsmd = rs.getMetaData();
-        String[] columnNames = new String[((ResultSetMetaData) rsmd).getColumnCount()];
+        String[] columnNames = new String[rsmd.getColumnCount()];
         for (int i = 0; i < columnNames.length; i++) {
             columnNames[i] = rsmd.getColumnName(i + 1);
         }

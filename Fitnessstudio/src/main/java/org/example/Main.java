@@ -66,11 +66,11 @@ public class Main {
                     }
                     break;
                 case "b", "backup":
-                    System.out.println("Backup will be saved as backup.json");
+                    System.out.println("Backup will be saved as backup.json in folder resources");
                     db.backup();
                     break;
                 case "r", "restore":
-                    System.out.println("Backup will be restored from backup.json");
+                    System.out.println("Backup will be restored from backup.json from folder resources");
                     db.restore();
                     break;
                 default:
