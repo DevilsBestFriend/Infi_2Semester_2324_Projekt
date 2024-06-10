@@ -42,8 +42,8 @@ public class Database {
     public static void formatResult(ResultSet rs) throws SQLException {
         ResultSetMetaData rsmd = rs.getMetaData();
         String[] columnNames = new String[((ResultSetMetaData) rsmd).getColumnCount()];
-        for (int i = 1; i <= columnNames.length; i++) {
-            columnNames[i] = rsmd.getColumnName(i);
+        for (int i = 0; i < columnNames.length; i++) {
+            columnNames[i] = rsmd.getColumnName(i + 1);
         }
 
         try {
@@ -65,7 +65,13 @@ public class Database {
                             System.out.println(columnName + ": " + rs.getTime(columnName));
                             break;
                         case java.sql.Types.BOOLEAN:
-                            System.out.println(columnName + ": " + rs.getBoolean(columnName));
+                            String bool;
+                            if (rs.getBoolean(columnName)) {
+                                bool = ("true");
+                            } else {
+                                bool = ("false");
+                            }
+                            System.out.println(columnName + ": " + bool);
                             break;
                         default:
                             System.out.println(columnName + ": " + rs.getString(columnName));
@@ -73,6 +79,7 @@ public class Database {
                     }
                     i++;
                 }
+                System.out.println();
             }
         } catch (SQLException e) {
             e.printStackTrace();
