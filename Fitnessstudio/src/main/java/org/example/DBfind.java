@@ -23,13 +23,11 @@ public class DBfind {
 
     public static void findkurs(Database db) throws SQLException {
         System.out.println("Enter course name");
-        String name = scn.nextLine();
-
         PreparedStatement preparedStatement = db.getCon().prepareStatement("SELECT k.tag Tag, k.name Kursname, t.nname Trainer, k.startzeit Startzeit, k.endzeit Endzeit " +
                 "FROM kurs k INNER JOIN trainer t ON k.trainer = t.id " +
                 "WHERE k.name LIKE ? " +
                 "ORDER BY k.tag ASC");
-        preparedStatement.setString(1, "%"+name+"%");
+        preparedStatement.setString(1, "%" + scn.nextLine() + "%");
         try {
             ResultSet rs = db.execQueryye(preparedStatement);
             Database.formatResult(rs);
@@ -40,10 +38,28 @@ public class DBfind {
     }
 
     public static void findteilnehmer(Database db) throws SQLException {
-        ResultSet rs = db.execQueryno("SELECT k.name Kurs, m.nname \"Teilnehmer n\", m.vname \"Teilnehmer v\", m.checkin Checkin " +
+        System.out.println("Search by course name or participant name? (c/p - p defautl)");
+        String sql = "SELECT k.name Kurs, m.nname \"Teilnehmer n\", m.vname \"Teilnehmer v\", m.checkin Checkin " +
                 "FROM teilnehmer t INNER JOIN mitglieder m ON t.mitglied = m.id " +
-                "INNER JOIN kurs k ON t.kurs = k.id " +
-                "ORDER BY k.name ASC");
+                "INNER JOIN kurs k ON t.kurs = k.id ";
+        PreparedStatement prst = null;
+        if (scn.nextLine().equals("c")) {
+            System.out.println("Enter search term");
+            sql += "WHERE k.name LIKE ? ORDER BY k.name ASC";
+            prst = db.getCon().prepareStatement(sql);
+            prst.setString(1, "%" + scn.nextLine() + "%");
+        } else {
+            sql += "WHERE m.nname LIKE ? and m.vname LIKE ?";
+            prst = db.getCon().prepareStatement(sql);
+            System.out.println(prst.toString());
+            System.out.println("Enter last name");
+            prst.setString(1, "%" + scn.nextLine() + "%");
+            System.out.println("Enter first name");
+            prst.setString(2, "%" + scn.nextLine() + "%");
+        }
+
+
+        ResultSet rs = db.execQueryye(prst);
         Database.formatResult(rs);
     }
 }
