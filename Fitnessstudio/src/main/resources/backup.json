@@ -1,0 +1,51 @@
+{
+  "backup": {
+    "mitglieder": [
+      {
+        "mitgliedschaft": "Schüler",
+        "vname": "LEon",
+        "checkin": "t",
+        "nname": "Maulhalten",
+        "gbd": "2007-03-03",
+        "vertragsstart": "2024-06-10",
+        "id": "82124c3f-379a-4bce-8d97-9aab0675a2a1"
+      },
+      {
+        "mitgliedschaft": "Schüler",
+        "vname": "fdas",
+        "checkin": "t",
+        "nname": "fda",
+        "gbd": "2000-08-08",
+        "vertragsstart": "2024-06-10",
+        "id": "4901b8dd-397a-410f-a9a6-41d3cf6f371e"
+      }
+    ],
+    "trainer": [
+      {
+        "einstelldatum": "2024-06-10",
+        "vname": "Julian",
+        "nname": "Breitfeiner",
+        "gbd": "2007-03-01",
+        "id": "36fa999e-201f-4197-8b80-28fe24f21a33",
+        "gehalt": "4269.00"
+      }
+    ],
+    "kurs": [
+      {
+        "endzeit": "20:15:44",
+        "trainer": "36fa999e-201f-4197-8b80-28fe24f21a33",
+        "name": "Ölen Grundkurs",
+        "id": "a3d9a9a8-52f3-4264-ba7c-20e25b6100dd",
+        "tag": "Montag",
+        "startzeit": "18:30:15"
+      }
+    ],
+    "teilnehmer": [
+      {
+        "mitglied": "82124c3f-379a-4bce-8d97-9aab0675a2a1",
+        "kurs": "a3d9a9a8-52f3-4264-ba7c-20e25b6100dd",
+        "id": "b3f0d32c-a475-4538-9946-58eed91f71ad"
+      }
+    ]
+  }
+}
