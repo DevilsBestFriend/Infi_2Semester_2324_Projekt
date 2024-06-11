@@ -35,7 +35,7 @@ public class Database {
             // initialize File writer to write the backup to a file and remove previous backup
             file = new FileWriter("src/main/resources/backup.json");
             file.flush();
-
+            file.write("{ \"backup\": {");
             JSONObject jsonObject = null;
 
             // sql for tables
@@ -49,6 +49,7 @@ public class Database {
                 for (int j = 0; j < columnNames.length; j++) {
                     columnNames[j] = rsmd.getColumnName(j + 1);
                 }
+                file.write("\"" + rsmd.getTableName(1) + "\": [");
                 while (rs.next()) {
                     int j = 1;
                     for (String columnName : columnNames) {
@@ -60,9 +61,6 @@ public class Database {
                             case java.sql.Types.DOUBLE:
                                 jsonObject.put(columnName, rs.getDouble(columnName));
                                 break;
-                            /*case java.sql.Types.BOOLEAN:
-                                jsonObject.put(columnName, rs.getBoolean(columnName));
-                                break;*/
                             default:
                                 jsonObject.put(columnName, rs.getString(columnName));
                                 break;
@@ -70,12 +68,13 @@ public class Database {
                         j++;
                     }
                     jsonObject.writeJSONString(file);
+                    if (!rs.isLast()) {
+                        file.write(",");
+                    }
                 }
-
-                String jsonText = file.toString();
-                System.out.print(jsonText);
+                file.write("],");
             }
-
+            file.write("}}");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("File not found");
