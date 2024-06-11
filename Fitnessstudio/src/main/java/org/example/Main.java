@@ -37,7 +37,7 @@ public class Main {
                 case "h", "help": {
                     System.out.println("Commands:");
                     System.out.println("e exit: Exit the program");
-                    System.out.println("h help: Show this help message");
+                    System.out.println("h help: Show this message");
                     System.out.println("i insert: Insert a new entry");
                     System.out.println("s select f find: Select/find entries");
                     System.out.println("u update: Update an entry");
