@@ -6,7 +6,7 @@ import java.util.Scanner;
 // DB STARTEN NICHT VERGESSEN
 //
 
-// TODO import/export , update, delete
+// TODO import, update, delete
 
 public class Main {
     static Scanner scn = new Scanner(System.in);
@@ -57,6 +57,7 @@ public class Main {
                             select(db, table);
                             break;
                         case "u", "update":
+                            update(db, table);
                             break;
                         case "d", "delete":
                             break;
@@ -127,6 +128,40 @@ public class Main {
                 break;
             case "te", "teilnehmer":
                 DBfind.findteilnehmer(db);
+                break;
+        }
+    }
+
+    public static void update(Database db, String table) throws SQLException {
+        switch (table) {
+            case "mi", "mitglieder":
+                DBupdate.updmitglied(db);
+                break;
+            case "tr", "trainer":
+                DBupdate.updtrainer(db);
+                break;
+            case "kr", "kurs":
+                DBupdate.updkurs(db);
+                break;
+            case "te", "teilnehmer":
+                DBupdate.updteilnehmer(db);
+                break;
+        }
+    }
+
+    public static void delete(Database db, String table) throws SQLException {
+        switch (table) {
+            case "mi", "mitglieder":
+                DBdelete.delmitglied(db);
+                break;
+            case "tr", "trainer":
+                DBdelete.deltrainer(db);
+                break;
+            case "kr", "kurs":
+                DBdelete.delkurs(db);
+                break;
+            case "te", "teilnehmer":
+                DBdelete.delteilnehmer(db);
                 break;
         }
     }
