@@ -7,6 +7,7 @@ import java.util.Scanner;
 //
 
 // TODO import, update, delete
+// TODO CHECKIN/OUT
 
 public class Main {
     static Scanner scn = new Scanner(System.in);
