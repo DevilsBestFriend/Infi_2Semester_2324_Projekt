@@ -28,7 +28,6 @@ public class Database {
     }
 
     public void backup() {
-        // TODO
         // Store file in src/main/resources
         FileWriter file = null;
         try {

@@ -22,7 +22,7 @@ public class DBfind {
         } catch (SQLException e) {
             System.out.println("Fehler beim Suchen des Kurses finde ich");
             e.printStackTrace();
-        };
+        }
     }
 
     public static void findtrainer(Database db) throws SQLException {

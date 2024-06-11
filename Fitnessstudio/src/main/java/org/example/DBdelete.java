@@ -1,7 +1,7 @@
 package org.example;
 
-public class DBdelete
-{
+public class DBdelete {
+
     public static void delmitglied(Database db) {
     }
 
