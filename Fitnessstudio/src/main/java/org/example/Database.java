@@ -1,6 +1,5 @@
 package org.example;
 
-import java.io.StringWriter;
 import java.sql.*;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,14 +8,12 @@ import org.json.simple.JSONObject;
 
 public class Database {
     Connection con;
-    ResultSet rs;
 
     public Database(String url) {
         try {
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection(url);
             System.out.println("Connection established hoffentlich");
-            rs = null;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,7 +31,7 @@ public class Database {
             // initialize File writer to write the backup to a file and remove previous backup
             file = new FileWriter("src/main/resources/backup.json");
             file.flush();
-            file.write("{ \"backup\": {");
+            file.write("{");
             JSONObject jsonObject = null;
 
             // sql for tables
@@ -73,7 +70,7 @@ public class Database {
                 }
                 file.write("],");
             }
-            file.write("}}");
+            file.write("}");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("File not found");
