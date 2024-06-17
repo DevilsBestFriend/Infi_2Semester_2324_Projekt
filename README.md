@@ -12,9 +12,3 @@ This project is a management software for a fitness studio, developed using Java
 ## Usage
 
 The software provides a command-line interface for interaction. The user is prompted to enter the necessary information for each operation.
-
-
-
-## Development
-
-This project uses Java and PostgreSQL. It is built with Maven.
